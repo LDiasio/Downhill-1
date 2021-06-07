@@ -1,0 +1,145 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scenes/Yeti.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
+[ext_resource path="res://YetiScenes/YetiShadow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Camera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/Background/SnowBorderBig.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/SnowBorder.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/Background/Mountain3.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Background/Mountains2.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Background/Mountains1.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Background/Mountain4.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/ParallaxBackground.gd" type="Script" id=11]
+
+[sub_resource type="Curve" id=1]
+min_value = -20.0
+max_value = 20.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.110465, 3.81818 ), 0.0, 0.0, 0, 0, Vector2( 0.290698, -2 ), 0.0, 0.0, 0, 0, Vector2( 0.401163, 2 ), 0.0, 0.0, 0, 0, Vector2( 0.598837, -2 ), 0.0, 0.0, 0, 0, Vector2( 0.802326, 3.81818 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0.0465116, 0.726136 ), 0.0, 0.0, 0, 0, Vector2( 0.877907, 1 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Game" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+offset = Vector2( 175.035, 24.152 )
+rotation = 0.0994837
+scale = Vector2( 1.2, 1.2 )
+transform = Transform2D( 1.19407, 0.119184, -0.119184, 1.19407, 175.035, 24.152 )
+script = ExtResource( 11 )
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2( 300, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer1"]
+texture = ExtResource( 10 )
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+position = Vector2( 0, 18.752 )
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 300, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 7 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+position = Vector2( 0, 2.354 )
+motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 300, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource( 8 )
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+position = Vector2( 0, -4.02 )
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 300, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource( 9 )
+
+[node name="SnowBorder" type="ParallaxBackground" parent="Background"]
+offset = Vector2( 197.031, -1.02 )
+rotation = 0.174533
+scale = Vector2( 1.3, 1.3 )
+transform = Transform2D( 1.28025, 0.225743, -0.225743, 1.28025, 197.031, -1.02 )
+script = ExtResource( 6 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Background/SnowBorder"]
+position = Vector2( 0, -6.022 )
+motion_scale = Vector2( 0.1, 1 )
+motion_mirroring = Vector2( 300, 0 )
+
+[node name="Sprite" type="Sprite" parent="Background/SnowBorder/ParallaxLayer5"]
+position = Vector2( 0, 11.891 )
+texture = ExtResource( 5 )
+
+[node name="Bodies" type="Node2D" parent="."]
+position = Vector2( -3.57628e-07, 24 )
+rotation = 0.174533
+
+[node name="ColorRect" type="ColorRect" parent="Bodies"]
+margin_left = -159.87
+margin_top = 0.737793
+margin_right = 480.13
+margin_bottom = 360.738
+color = Color( 0.796078, 0.858824, 0.988235, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SnowTrails" type="Node2D" parent="Bodies"]
+
+[node name="Cracks" type="Node2D" parent="Bodies"]
+rotation = 2.98023e-08
+
+[node name="Shadows" type="Node2D" parent="Bodies"]
+rotation = 1.49012e-08
+
+[node name="YetiShadow" parent="Bodies/Shadows" instance=ExtResource( 3 )]
+
+[node name="Flags" type="Node2D" parent="Bodies"]
+rotation = 2.98023e-08
+
+[node name="Trails" type="Node2D" parent="Bodies"]
+
+[node name="YSort" type="YSort" parent="Bodies"]
+rotation = 1.49012e-08
+
+[node name="Yeti" parent="Bodies/YSort" instance=ExtResource( 1 )]
+position = Vector2( 48, 90 )
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="SpawnObstacleTimer" type="Timer" parent="Timers"]
+autostart = true
+
+[node name="Snow" type="CanvasLayer" parent="."]
+
+[node name="Snowflakes" type="CPUParticles2D" parent="Snow"]
+position = Vector2( 160, -57 )
+amount = 320
+lifetime = 5.0
+preprocess = 5.0
+randomness = 1.0
+emission_shape = 2
+emission_rect_extents = Vector2( 320, 32 )
+direction = Vector2( -1, 1 )
+gravity = Vector2( 0, 0 )
+initial_velocity = 96.0
+angular_velocity = 1.0
+angular_velocity_random = 1.0
+angular_velocity_curve = SubResource( 1 )
+angle = 45.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 2 )
+
+[node name="Camera" parent="." instance=ExtResource( 4 )]
+position = Vector2( 160, 90 )
+
+[connection signal="timeout" from="Timers/SpawnObstacleTimer" to="." method="_on_SpawnObstacleTimer_timeout"]
