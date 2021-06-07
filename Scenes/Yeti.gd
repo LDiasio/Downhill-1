@@ -3,6 +3,8 @@ extends KinematicBody2D
 # Prefabs
 onready var trail = preload("res://Scenes/Trail.tscn")
 onready var snow_trail = preload("res://Scenes/YetiTrail.tscn")
+onready var human = preload("res://Scenes/HumanFood.tscn")
+onready var blood = preload("res://Scenes/Blood.tscn")
 
 # Outside noes
 onready var game = get_parent().get_parent().get_parent()
@@ -16,20 +18,22 @@ var trick_color = Color(3,3,3,1)
 
 # Nodes
 onready var jump_skin = $JumpSkin
-onready var angle_skin = $JumpSkin/IdleSkin/DamageSkin/AngleSkin
-onready var damage_skin = $JumpSkin/IdleSkin/DamageSkin
-onready var trick_skin = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks
-onready var trick_fix = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix
-onready var sprite = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks/YetiSprite
-onready var between_sprite = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks/BetweenYetiSprite
+onready var angle_skin = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin
+onready var damage_skin = $JumpSkin/IdleSkin/EatSkin/DamageSkin
+onready var trick_skin = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks
+onready var trick_fix = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix
+onready var sprite = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/BetweenYetiSprite
+onready var between_sprite = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/BetweenYetiSprite
+onready var food_container = $FoodContainer
 
 # Areas
-onready var damage_area = $JumpSkin/IdleSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea
+onready var damage_area = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea
 
 # Players
 onready var damage_player = $Players/DamagePlayer
 onready var trick_player = $Players/TrickPlayer
 onready var perform_trick_player = $Players/PerformTrickPlayer
+onready var eat_player = $Players/EatPlayer
 
 # Timers
 onready var between_frame_timer = $Timers/BetweenFrameTimer
@@ -265,6 +269,9 @@ func _on_DamageArea_area_entered(area):
 		var new_impact = (bear.position - position).normalized() * bear.impact
 		get_bear_damage(new_impact)
 		bear.get_damage()
+	elif area.is_in_group("humans"):
+		var new_human = area.get_parent()
+		new_human.eat()
 		
 func get_damage():
 	damage_player.play("Damage")
@@ -284,6 +291,28 @@ func get_bear_damage(new_impact):
 		velocity.y = -200
 	elif velocity.y > 200:
 		velocity.y = 200 
+
+#################################################
+### EAT ###
+###########
+
+func eat_humans(kind_of_human, human_pos):
+	var new_human = human.instance()
+	new_human.get_node("HumanSprite").play(str(kind_of_human))
+	food_container.add_child(new_human)
+	new_human.owner = food_container
+	new_human.global_position = human_pos + Vector2(0,-9)
+
+func swallow():
+	eat_player.stop()
+	eat_player.play("Eat")
+	var new_blood = blood.instance()
+	food_container.add_child(new_blood)
+	new_blood.owner = food_container
+
+##############################################
+### EFFECTS ###
+###############
 
 func trail_effect():
 	var new_trail = trail.instance()

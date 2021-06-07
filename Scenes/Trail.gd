@@ -11,7 +11,6 @@ func _ready():
 	fade_tween.start()
 
 func _process(delta):
-	#position.x -=  (game.global_speed + yeti.velocity.x) * delta
 	position.x -=  (game.global_speed) * delta
 
 func _on_FadeTween_tween_all_completed():

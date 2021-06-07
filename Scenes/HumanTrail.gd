@@ -11,4 +11,3 @@ func _process(delta):
 
 func movement(delta):
 	position.x -= game.global_speed * delta
-

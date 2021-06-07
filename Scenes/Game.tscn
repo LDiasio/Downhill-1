@@ -116,6 +116,10 @@ position = Vector2( 48, 90 )
 [node name="Timers" type="Node2D" parent="."]
 
 [node name="SpawnObstacleTimer" type="Timer" parent="Timers"]
+wait_time = 0.8
+autostart = true
+
+[node name="SpawnFlags" type="Timer" parent="Timers"]
 autostart = true
 
 [node name="Snow" type="CanvasLayer" parent="."]
@@ -143,3 +147,4 @@ scale_amount_curve = SubResource( 2 )
 position = Vector2( 160, 90 )
 
 [connection signal="timeout" from="Timers/SpawnObstacleTimer" to="." method="_on_SpawnObstacleTimer_timeout"]
+[connection signal="timeout" from="Timers/SpawnFlags" to="." method="_on_SpawnFlags_timeout"]
