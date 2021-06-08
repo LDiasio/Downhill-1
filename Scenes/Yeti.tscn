@@ -311,6 +311,7 @@ position = Vector2( 0, -14 )
 
 [node name="YetiSprite" parent="JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks" instance=ExtResource( 1 )]
 position = Vector2( 0, -2 )
+frame = 1
 
 [node name="BetweenYetiSprite" parent="JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks" instance=ExtResource( 1 )]
 visible = false

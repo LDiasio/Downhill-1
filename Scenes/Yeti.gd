@@ -40,7 +40,6 @@ onready var between_frame_timer = $Timers/BetweenFrameTimer
 
 # Parameters
 var acceleration = 400
-
 var local_speed : float = 100
 var velocity = Vector2.ZERO
 
@@ -248,6 +247,7 @@ func trick_complete():
 	perform_trick_player.play("Push")
 	set_between_frame()
 	sprite.play("Idle")
+	
 
 func _on_TrickPlayer_animation_finished(_anim_name):
 	trick = IDLE
@@ -258,17 +258,20 @@ func _on_BetweenFrameTimer_timeout():
 ##############
 ### DAMAGE ###
 ###########################################################
+signal update_gui_health
 
 func _on_DamageArea_area_entered(area):
 	if area.is_in_group("obstacles"):
 		var obstacle = area.get_parent().get_parent().get_parent().get_parent()
 		get_damage()
 		obstacle.get_damage()
+		emit_signal("update_gui_health",-1)
 	elif area.is_in_group("bears"):
 		var bear = area.get_parent().get_parent().get_parent().get_parent()
 		var new_impact = (bear.position - position).normalized() * bear.impact
 		get_bear_damage(new_impact)
 		bear.get_damage()
+		emit_signal("update_gui_health",-2)
 	elif area.is_in_group("humans"):
 		var new_human = area.get_parent()
 		new_human.eat()
@@ -303,12 +306,15 @@ func eat_humans(kind_of_human, human_pos):
 	new_human.owner = food_container
 	new_human.global_position = human_pos + Vector2(0,-9)
 
+signal update_humans_eaten
+
 func swallow():
 	eat_player.stop()
 	eat_player.play("Eat")
 	var new_blood = blood.instance()
 	food_container.add_child(new_blood)
 	new_blood.owner = food_container
+	emit_signal("update_humans_eaten")
 
 ##############################################
 ### EFFECTS ###

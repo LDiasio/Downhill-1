@@ -3,10 +3,10 @@
 [ext_resource path="res://Scenes/HumanSprite.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Human.gd" type="Script" id=2]
 
-[sub_resource type="CircleShape2D" id=35]
+[sub_resource type="CircleShape2D" id=1]
 radius = 14.0
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=2]
 resource_name = "Idle"
 loop = true
 tracks/0/type = "value"
@@ -43,10 +43,10 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="FoodCollision" type="CollisionShape2D" parent="FoodArea"]
-shape = SubResource( 35 )
+shape = SubResource( 1 )
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="Idle" type="AnimationPlayer" parent="Players"]
 autoplay = "Idle"
-anims/Idle = SubResource( 34 )
+anims/Idle = SubResource( 2 )

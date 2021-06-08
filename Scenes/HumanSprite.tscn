@@ -1,6 +1,7 @@
 [gd_scene load_steps=35 format=2]
 
-[ext_resource path="res://Sprites/Humans/Humans.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Humans/HumansOLD.png" type="Texture" id=1]
+
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 1 )
