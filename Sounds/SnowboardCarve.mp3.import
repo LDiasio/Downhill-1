@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SnowboardCarve.mp3-5bfb1d28bb637988b4fb479548241828.mp3str"
+
+[deps]
+
+source_file="res://Sounds/SnowboardCarve.mp3"
+dest_files=[ "res://.import/SnowboardCarve.mp3-5bfb1d28bb637988b4fb479548241828.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

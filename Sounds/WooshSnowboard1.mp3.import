@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/WooshSnowboard1.mp3-957ea86b49ea99bd4e2eb60183d0a531.mp3str"
+
+[deps]
+
+source_file="res://Sounds/WooshSnowboard1.mp3"
+dest_files=[ "res://.import/WooshSnowboard1.mp3-957ea86b49ea99bd4e2eb60183d0a531.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

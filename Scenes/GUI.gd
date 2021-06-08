@@ -9,10 +9,10 @@ onready var gui_health = 10
 
 func _on_Yeti_update_humans_eaten():
 	gui_humans_eaten += 1
-	$NumberLabel.text = String(gui_humans_eaten)
+	$HBoxContainer/NumberLabel.text = String(gui_humans_eaten)
 	
 
 func _on_Yeti_update_gui_health(gui_health_change):
 	gui_health += gui_health_change
-	$HBoxContainer/HealthBar.value = gui_health 
+	$CenterContainer/HealthBar.value = gui_health 
 	

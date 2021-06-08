@@ -1,7 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://YetiScenes/YetiSprite.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Yeti.gd" type="Script" id=2]
+[ext_resource path="res://Sounds/TitleScreenDraft01.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/WooshSnowboard1.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/Crunch3.mp3" type="AudioStream" id=5]
+[ext_resource path="res://Sounds/SnowboardCarve.mp3" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14, 3 )
@@ -311,7 +315,7 @@ position = Vector2( 0, -14 )
 
 [node name="YetiSprite" parent="JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks" instance=ExtResource( 1 )]
 position = Vector2( 0, -2 )
-frame = 1
+frame = 0
 
 [node name="BetweenYetiSprite" parent="JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks" instance=ExtResource( 1 )]
 visible = false
@@ -368,7 +372,24 @@ autostart = true
 wait_time = 0.05
 one_shot = true
 
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="CrunchSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 5 )
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 6 )
+
+[node name="LandSound" type="AudioStreamPlayer" parent="Sounds"]
+
+[node name="TrickSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 4 )
+
+[node name="MusicSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 3 )
+
 [connection signal="area_entered" from="JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea" to="." method="_on_DamageArea_area_entered"]
 [connection signal="animation_finished" from="Players/TrickPlayer" to="." method="_on_TrickPlayer_animation_finished"]
 [connection signal="timeout" from="Timers/TrailTimer" to="." method="_on_TrailTimer_timeout"]
 [connection signal="timeout" from="Timers/BetweenFrameTimer" to="." method="_on_BetweenFrameTimer_timeout"]
+[connection signal="finished" from="Sounds/CrunchSound" to="." method="_on_CrunchSound_finished"]

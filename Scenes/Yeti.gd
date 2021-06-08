@@ -6,7 +6,7 @@ onready var snow_trail = preload("res://Scenes/YetiTrail.tscn")
 onready var human = preload("res://Scenes/HumanFood.tscn")
 onready var blood = preload("res://Scenes/Blood.tscn")
 
-# Outside noes
+# Outside nodes
 onready var game = get_parent().get_parent().get_parent()
 onready var trails = get_parent().get_parent().get_node("Trails")
 onready var snow_trails = get_parent().get_parent().get_node("SnowTrails")
@@ -25,6 +25,13 @@ onready var trick_fix = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFi
 onready var sprite = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/BetweenYetiSprite
 onready var between_sprite = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/BetweenYetiSprite
 onready var food_container = $FoodContainer
+
+# Sounds
+onready var crunch_sound = $Sounds/CrunchSound
+onready var jump_sound = $Sounds/JumpSound
+onready var land_sound = $Sounds/LandSound
+onready var trick_sound = $Sounds/TrickSound
+onready var music_sound = $Sounds/MusicSound
 
 # Areas
 onready var damage_area = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea
@@ -132,6 +139,7 @@ func jump(delta):
 		on_floor = false
 		damage_area.get_node("DamageCollision").set_deferred("disabled", true)
 		jump_velocity.y -= jump_strength
+		jump_sound.play()
 	
 	if on_floor:
 		jump_velocity = Vector2.ZERO
@@ -186,6 +194,7 @@ func tricks():
 			set_between_frame()
 			sprite.play("Trick1")
 			trick_player.play("Angle")
+			trick_sound.play()
 		elif left_click >= 1 and Input.is_action_just_pressed("move_left"):
 			trick = BACK
 			trick_action = true
@@ -194,6 +203,7 @@ func tricks():
 			set_between_frame()
 			sprite.play("Trick2")
 			trick_player.play("Back")
+			trick_sound.play()
 		elif left_click >= 1 and Input.is_action_just_pressed("move_right"):
 			trick = ROTATE
 			trick_action = true
@@ -202,6 +212,7 @@ func tricks():
 			set_between_frame()
 			sprite.play("Trick3")
 			trick_player.play("Rotate")
+			trick_sound.play()
 		elif right_click >= 1 and Input.is_action_just_pressed("move_right"):
 			trick = TURN
 			trick_action = true
@@ -210,6 +221,7 @@ func tricks():
 			set_between_frame()
 			sprite.play("Trick4")
 			trick_player.play("Turn")
+			trick_sound.play()
 		elif down_click >= 1 and Input.is_action_just_pressed("move_down"):
 			trick = UPSIDE
 			trick_action = true
@@ -218,6 +230,7 @@ func tricks():
 			set_between_frame()
 			sprite.play("Trick5")
 			trick_player.play("Upside")
+			trick_sound.play()
 	if on_floor and trick == IDLE:
 		trick_action = false
 	if !on_floor:
@@ -315,6 +328,8 @@ func swallow():
 	food_container.add_child(new_blood)
 	new_blood.owner = food_container
 	emit_signal("update_humans_eaten")
+	crunch_sound.play()
+	
 
 ##############################################
 ### EFFECTS ###
@@ -353,3 +368,10 @@ func spawn_snow_trail():
 		new_snow_trail.position = position + Vector2(0,-1)
 		new_snow_trail.rotation_degrees = sprite.global_rotation_degrees - game.slope - trick_skin.rotation_degrees
 		snow_trails.add_child(new_snow_trail)
+
+##############################################
+### SOUNDS ###
+###############
+
+func _ready():
+	music_sound.play()

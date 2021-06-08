@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/UI2_Select.mp3-497e0d7a553aa27ad7629c54e817b7df.mp3str"
+
+[deps]
+
+source_file="res://Sounds/UI2_Select.mp3"
+dest_files=[ "res://.import/UI2_Select.mp3-497e0d7a553aa27ad7629c54e817b7df.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

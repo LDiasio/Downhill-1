@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Crunch3.mp3-47378271c14eb42cec1b5c31c72178a6.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Crunch3.mp3"
+dest_files=[ "res://.import/Crunch3.mp3-47378271c14eb42cec1b5c31c72178a6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Downhill.mp3-02698dc81b92ed66890c81459f4d28e2.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Downhill.mp3"
+dest_files=[ "res://.import/Downhill.mp3-02698dc81b92ed66890c81459f4d28e2.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Yeti.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Game.gd" type="Script" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://Sprites/Background/Mountains1.png" type="Texture" id=9]
 [ext_resource path="res://Sprites/Background/Mountain4.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/ParallaxBackground.gd" type="Script" id=11]
-[ext_resource path="res://Sprites/GUI/Masaaki-Regular.otf" type="DynamicFontData" id=12]
+[ext_resource path="res://Scenes/Font.tres" type="DynamicFont" id=12]
 [ext_resource path="res://Sprites/GUI/LifebarFg.png" type="Texture" id=13]
 [ext_resource path="res://Sprites/GUI/LifebarBg.png" type="Texture" id=14]
 [ext_resource path="res://Scenes/GUI.gd" type="Script" id=15]
@@ -23,12 +23,6 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.110465, 3.81818 ), 0.0, 0.
 
 [sub_resource type="Curve" id=2]
 _data = [ Vector2( 0.0465116, 0.726136 ), 0.0, 0.0, 0, 0, Vector2( 0.877907, 1 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="DynamicFont" id=3]
-size = 15
-outline_size = 1
-outline_color = Color( 0.247059, 0.247059, 0.454902, 1 )
-font_data = ExtResource( 12 )
 
 [node name="Game" type="Node"]
 script = ExtResource( 2 )
@@ -163,13 +157,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI"]
-margin_right = 288.0
+[node name="CenterContainer" type="CenterContainer" parent="GUI"]
+margin_right = 120.0
 margin_bottom = 23.0
+size_flags_horizontal = 0
 
-[node name="HealthBar" type="TextureProgress" parent="GUI/HBoxContainer"]
-margin_right = 144.0
-margin_bottom = 17.0
+[node name="HealthBar" type="TextureProgress" parent="GUI/CenterContainer"]
+margin_top = 3.0
+margin_right = 120.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 max_value = 10.0
@@ -182,31 +178,30 @@ stretch_margin_top = 11
 stretch_margin_right = 11
 stretch_margin_bottom = 11
 
-[node name="FillerSpace" type="Label" parent="GUI/HBoxContainer"]
-margin_left = 148.0
-margin_top = 4.0
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI"]
 margin_right = 288.0
-margin_bottom = 18.0
-text = "                                   "
+margin_bottom = 23.0
 
-[node name="NumberLabel" type="Label" parent="GUI"]
-margin_right = 288.0
+[node name="HumansEaten" type="Label" parent="GUI/HBoxContainer"]
+margin_right = 276.0
 margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 2
-custom_fonts/font = SubResource( 3 )
-text = "0"
-align = 2
-
-[node name="HumansEaten" type="Label" parent="GUI"]
-margin_right = 288.0
-margin_bottom = 19.0
-size_flags_horizontal = 3
-size_flags_vertical = 2
-custom_fonts/font = SubResource( 3 )
-text = "HUMANS EATEN:    "
+custom_fonts/font = ExtResource( 12 )
+text = "HUMANS EATEN:"
 align = 2
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NumberLabel" type="Label" parent="GUI/HBoxContainer"]
+margin_left = 280.0
+margin_right = 288.0
+margin_bottom = 19.0
+size_flags_vertical = 2
+custom_fonts/font = ExtResource( 12 )
+text = "0"
 
 [node name="Camera" parent="." instance=ExtResource( 4 )]
 position = Vector2( 160, 90 )
