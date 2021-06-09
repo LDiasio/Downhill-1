@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://YetiScenes/YetiSprite.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Yeti.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sounds/WooshSnowboard1.mp3" type="AudioStream" id=4]
 [ext_resource path="res://Sounds/Crunch3.mp3" type="AudioStream" id=5]
 [ext_resource path="res://Sounds/SnowboardCarve.mp3" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/Hit2.mp3" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 14, 3 )
@@ -13,20 +14,28 @@ extents = Vector2( 14, 3 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 6, 16 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=12]
 resource_name = "Idle"
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("../JumpSkin/IdleSkin:scale")
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:scale:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( -2, -2 ),
-"update": 0,
-"values": [ Vector2( 0.95, 1.05 ), Vector2( 1.05, 0.95 ) ]
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.95, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1.05, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
 }
 
 [sub_resource type="Animation" id=4]
@@ -344,7 +353,7 @@ position = Vector2( 1, -22 )
 
 [node name="IdlePlayer" type="AnimationPlayer" parent="Players"]
 autoplay = "Idle"
-anims/Idle = SubResource( 3 )
+anims/Idle = SubResource( 12 )
 
 [node name="DamagePlayer" type="AnimationPlayer" parent="Players"]
 anims/Damage = SubResource( 4 )
@@ -387,6 +396,9 @@ stream = ExtResource( 4 )
 
 [node name="MusicSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 3 )
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 7 )
 
 [connection signal="area_entered" from="JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea" to="." method="_on_DamageArea_area_entered"]
 [connection signal="animation_finished" from="Players/TrickPlayer" to="." method="_on_TrickPlayer_animation_finished"]

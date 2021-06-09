@@ -32,6 +32,7 @@ onready var jump_sound = $Sounds/JumpSound
 onready var land_sound = $Sounds/LandSound
 onready var trick_sound = $Sounds/TrickSound
 onready var music_sound = $Sounds/MusicSound
+onready var hit_sound = $Sounds/HitSound
 
 # Areas
 onready var damage_area = $JumpSkin/IdleSkin/EatSkin/DamageSkin/AngleSkin/TricksFix/Tricks/DamageArea
@@ -279,12 +280,14 @@ func _on_DamageArea_area_entered(area):
 		get_damage()
 		obstacle.get_damage()
 		emit_signal("update_gui_health",-1)
+		hit_sound.play()
 	elif area.is_in_group("bears"):
 		var bear = area.get_parent().get_parent().get_parent().get_parent()
 		var new_impact = (bear.position - position).normalized() * bear.impact
 		get_bear_damage(new_impact)
 		bear.get_damage()
 		emit_signal("update_gui_health",-2)
+		hit_sound.play()
 	elif area.is_in_group("humans"):
 		var new_human = area.get_parent()
 		new_human.eat()
